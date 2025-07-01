@@ -22,28 +22,28 @@ public class MenuNavigation : MonoBehaviour
     // PlayGame opens the level select menu
     public void PlayGame()
     {
-        //SoundFXManager.instance.PlaySound(soundFX[0], transform, 1);
+        SoundFXManager.main.PlaySound(soundFX[0], transform, 1);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     // Options opens the options menu
     public void Options()
     {
-        //SoundFXManager.instance.PlaySound(soundFX[0], transform, 1);
+        SoundFXManager.main.PlaySound(soundFX[0], transform, 1);
         optionsMenu.SetActive(true);
     }
 
     // Options opens the options menu
     public void Credits()
     {
-        //SoundFXManager.instance.PlaySound(soundFX[0], transform, 1);
+        SoundFXManager.main.PlaySound(soundFX[0], transform, 1);
         creditsMenu.SetActive(true);
     }
 
     // Back closes the options and level select menus
     public void Back()
     {
-        //SoundFXManager.instance.PlaySound(soundFX[0], transform, 1);
+        SoundFXManager.main.PlaySound(soundFX[0], transform, 1);
         optionsMenu.SetActive(false);
         creditsMenu.SetActive(false);
     }

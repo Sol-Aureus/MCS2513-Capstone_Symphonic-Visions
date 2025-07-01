@@ -42,6 +42,7 @@ public class SetUIInteraction : MonoBehaviour
         }
     }
 
+    // Sets the selected UI element when the script is enabled
     public void JumpToElement()
     {
         if (eventSystem == null)
