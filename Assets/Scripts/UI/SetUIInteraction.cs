@@ -59,4 +59,16 @@ public class SetUIInteraction : MonoBehaviour
 
         eventSystem.SetSelectedGameObject(uiElement.gameObject);
     }
+
+    // Sets the UI element to interact with
+    public void SetUiElement(Selectable newUiElement)
+    {
+        if (newUiElement == null)
+        {
+            Debug.LogError("New UI Element is null.", context: this);
+            return;
+        }
+
+        uiElement = newUiElement;
+    }
 }

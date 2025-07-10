@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class RoomManager : MonoBehaviour
 {
+    // Makes functions easy to access
+    public static RoomManager main;
+
     [Header("Rooms")]
     [SerializeField] private GameObject[] roomsTwo; // Array to hold all room buttons
     [SerializeField] private GameObject[] roomsThree; // Array to hold all room buttons
+    [SerializeField] private Selectable[] statList; // Array of the stat buttons for the rooms
     [SerializeField] private GameObject[] floors; // Array to hold room layouts
 
     [Header("Chances")]
@@ -16,16 +21,20 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private float chanceForMystery; // Chance for a 50:50 chance of treasure or enemy
     [SerializeField] private float chanceForThreeEvents; // Chance for a room with three events (treasure, enemy, mystery)
 
-    // Start is called before the first frame update
-    void Start()
+    [Header("Ui Script")]
+    [SerializeField] private SetUIInteraction uiInteraction; // Reference to the UI interaction script
+    
+    // Awake is called when the script instance is being loaded
+    private void Awake()
     {
-        GenerateRooms();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (main == null)
+        {
+            main = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Method to initialize rooms with random events
@@ -68,6 +77,10 @@ public class RoomManager : MonoBehaviour
                     room.GetComponentInChildren<TextMeshProUGUI>().text = "Empty";
                 }
             }
+
+            // Set the UI interaction to the first room with three events
+            uiInteraction.SetUiElement(statList[1]);
+            uiInteraction.JumpToElement();
         }
         else
         {
@@ -97,6 +110,10 @@ public class RoomManager : MonoBehaviour
                     room.GetComponentInChildren<TextMeshProUGUI>().text = "Empty";
                 }
             }
+
+            // Set the UI interaction to the first room with three events
+            uiInteraction.SetUiElement(statList[0]);
+            uiInteraction.JumpToElement();
         }
     }
 }
