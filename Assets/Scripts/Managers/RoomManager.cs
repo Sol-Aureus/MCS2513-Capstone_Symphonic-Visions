@@ -14,6 +14,9 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private GameObject[] roomsThree; // Array to hold all room buttons
     [SerializeField] private Selectable[] statList; // Array of the stat buttons for the rooms
     [SerializeField] private GameObject[] floors; // Array to hold room layouts
+    [SerializeField] private GameObject treasureRoom; // Reference to the treasure room prefab
+    [SerializeField] private GameObject enemyRoom; // Reference to the enemy room prefab
+
 
     [Header("Chances")]
     [SerializeField] private float chanceForTreasure; // Chance for treasure in each room
@@ -23,7 +26,8 @@ public class RoomManager : MonoBehaviour
 
     [Header("Ui Script")]
     [SerializeField] private SetUIInteraction uiInteraction; // Reference to the UI interaction script
-    
+    [SerializeField] private GameNavigation gameNavigation; // Reference to the game navigation script
+
     // Awake is called when the script instance is being loaded
     private void Awake()
     {
@@ -40,6 +44,7 @@ public class RoomManager : MonoBehaviour
     // Method to initialize rooms with random events
     public void GenerateRooms()
     {
+        gameNavigation.HideAllScreens(); // Hide all screens before generating rooms
         foreach (GameObject floor in floors)
         {
             // Set the floor inactive
@@ -60,16 +65,26 @@ public class RoomManager : MonoBehaviour
                 {
                     // Room contains treasure
                     room.GetComponentInChildren<TextMeshProUGUI>().text = "Treasure!";
+                    room.GetComponent<Button>().onClick.AddListener(gameNavigation.LoadTreasureScreen); // Set the button to load the treasure screen
                 }
                 else if (randomValue < chanceForTreasure + chanceForEnemy)
                 {
                     // Room contains an enemy
                     room.GetComponentInChildren<TextMeshProUGUI>().text = "Enemy!";
+                    room.GetComponent<Button>().onClick.AddListener(gameNavigation.LoadFightScreen); // Set the button to load the treasure screen
                 }
                 else if (randomValue < chanceForTreasure + chanceForEnemy + chanceForMystery)
                 {
                     // Room contains a mystery (50:50 chance of treasure or enemy)
                     room.GetComponentInChildren<TextMeshProUGUI>().text = "Unknown";
+                    if (Random.value < 0.5f)
+                    {
+                        room.GetComponent<Button>().onClick.AddListener(gameNavigation.LoadTreasureScreen);
+                    }
+                    else
+                    {
+                        room.GetComponent<Button>().onClick.AddListener(gameNavigation.LoadFightScreen); // Set the button to load the fight screen
+                    }
                 }
                 else
                 {
@@ -93,16 +108,26 @@ public class RoomManager : MonoBehaviour
                 {
                     // Room contains treasure
                     room.GetComponentInChildren<TextMeshProUGUI>().text = "Treasure!";
+                    room.GetComponent<Button>().onClick.AddListener(gameNavigation.LoadTreasureScreen); // Set the button to load the treasure screen
                 }
                 else if (randomValue < chanceForTreasure + chanceForEnemy)
                 {
                     // Room contains an enemy
                     room.GetComponentInChildren<TextMeshProUGUI>().text = "Enemy!";
+                    room.GetComponent<Button>().onClick.AddListener(gameNavigation.LoadFightScreen); // Set the button to load the treasure screen
                 }
                 else if (randomValue < chanceForTreasure + chanceForEnemy + chanceForMystery)
                 {
                     // Room contains a mystery (50:50 chance of treasure or enemy)
                     room.GetComponentInChildren<TextMeshProUGUI>().text = "Unknown";
+                    if (Random.value < 0.5f)
+                    {
+                        room.GetComponent<Button>().onClick.AddListener(gameNavigation.LoadTreasureScreen);
+                    }
+                    else
+                    {
+                        room.GetComponent<Button>().onClick.AddListener(gameNavigation.LoadFightScreen); // Set the button to load the fight screen
+                    }
                 }
                 else
                 {

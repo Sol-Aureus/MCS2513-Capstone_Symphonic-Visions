@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 12401989}
   - component: {fileID: 12401988}
   - component: {fileID: 12401987}
+  - component: {fileID: 12401991}
   m_Layer: 5
   m_Name: RightRoom
   m_TagString: Untagged
@@ -184,19 +185,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 12401988}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1379950250}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &12401988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,6 +244,22 @@ RectTransform:
   m_AnchoredPosition: {x: 700, y: -250}
   m_SizeDelta: {x: 400, y: 250}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &12401991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 12401986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f95fefa878c25e548bcf2931ecae61c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiElement: {fileID: 157006264}
+  eventSystem: {fileID: 2131295215}
+  showVisualisation: 0
+  navigationColor: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &103891396
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,9 +640,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1379950255}
-        m_TargetAssemblyTypeName: GameNavigation, Assembly-CSharp
-        m_MethodName: LoadRoom2Screen
+      - m_Target: {fileID: 157006267}
+        m_TargetAssemblyTypeName: SetUIInteraction, Assembly-CSharp
+        m_MethodName: JumpToElement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -647,9 +652,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 157006267}
-        m_TargetAssemblyTypeName: SetUIInteraction, Assembly-CSharp
-        m_MethodName: JumpToElement
+      - m_Target: {fileID: 1379950255}
+        m_TargetAssemblyTypeName: GameNavigation, Assembly-CSharp
+        m_MethodName: LoadStatScreen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1125,10 +1130,10 @@ RectTransform:
   - {fileID: 653448617}
   m_Father: {fileID: 511287558}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 929.8616, y: -275}
-  m_SizeDelta: {x: 450, y: 400}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &379141778
 GameObject:
@@ -1315,9 +1320,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1379950253}
-        m_TargetAssemblyTypeName: SetUIInteraction, Assembly-CSharp
-        m_MethodName: JumpToElement
+      - m_Target: {fileID: 1379950255}
+        m_TargetAssemblyTypeName: GameNavigation, Assembly-CSharp
+        m_MethodName: LoadStatScreen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1392,10 +1397,10 @@ RectTransform:
   - {fileID: 930726430}
   m_Father: {fileID: 511287558}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1529.8616, y: -275}
-  m_SizeDelta: {x: 450, y: 400}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &399893310
 MonoBehaviour:
@@ -1431,7 +1436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &511287558
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2723,6 +2728,7 @@ GameObject:
   - component: {fileID: 837830979}
   - component: {fileID: 837830978}
   - component: {fileID: 837830977}
+  - component: {fileID: 837830981}
   m_Layer: 5
   m_Name: MiddleRoom
   m_TagString: Untagged
@@ -2773,19 +2779,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 837830978}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1379950250}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &837830978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2844,6 +2838,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -250}
   m_SizeDelta: {x: 400, y: 250}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &837830981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837830976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f95fefa878c25e548bcf2931ecae61c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiElement: {fileID: 157006264}
+  eventSystem: {fileID: 2131295215}
+  showVisualisation: 0
+  navigationColor: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &838142732
 GameObject:
   m_ObjectHideFlags: 0
@@ -3326,6 +3336,7 @@ GameObject:
   - component: {fileID: 973499314}
   - component: {fileID: 973499313}
   - component: {fileID: 973499312}
+  - component: {fileID: 973499316}
   m_Layer: 5
   m_Name: LeftRoom
   m_TagString: Untagged
@@ -3376,19 +3387,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 973499313}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1379950250}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &973499313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3447,6 +3446,22 @@ RectTransform:
   m_AnchoredPosition: {x: -700, y: -250}
   m_SizeDelta: {x: 400, y: 250}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &973499316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973499311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f95fefa878c25e548bcf2931ecae61c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiElement: {fileID: 157006264}
+  eventSystem: {fileID: 2131295215}
+  showVisualisation: 0
+  navigationColor: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &1015648331
 GameObject:
   m_ObjectHideFlags: 0
@@ -3584,10 +3599,10 @@ RectTransform:
   - {fileID: 612334980}
   m_Father: {fileID: 511287558}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 2129.8616, y: -275}
-  m_SizeDelta: {x: 450, y: 400}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1026795507
 MonoBehaviour:
@@ -3635,7 +3650,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1379950255}
         m_TargetAssemblyTypeName: GameNavigation, Assembly-CSharp
-        m_MethodName: LoadRoom2Screen
+        m_MethodName: Leave
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4160,10 +4175,10 @@ RectTransform:
   - {fileID: 638403287}
   m_Father: {fileID: 511287558}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 329.86157, y: -275}
-  m_SizeDelta: {x: 450, y: 400}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1272210419
 GameObject:
@@ -4637,11 +4652,14 @@ MonoBehaviour:
   floors:
   - {fileID: 1277793918}
   - {fileID: 789455955}
+  treasureRoom: {fileID: 0}
+  enemyRoom: {fileID: 0}
   chanceForTreasure: 0.5
   chanceForEnemy: 0.3
   chanceForMystery: 0.2
   chanceForThreeEvents: 0.3
   uiInteraction: {fileID: 1379950253}
+  gameNavigation: {fileID: 1379950255}
 --- !u!114 &1379950255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4659,6 +4677,10 @@ MonoBehaviour:
   treasureScreen: {fileID: 1572758238}
   room2Screen: {fileID: 1277793918}
   room3Screen: {fileID: 789455955}
+  fightScreenButton: {fileID: 399893305}
+  treasureScreenButton: {fileID: 103891396}
+  uiInteraction: {fileID: 157006267}
+  eventSystem: {fileID: 2131295215}
 --- !u!1 &1422777255
 GameObject:
   m_ObjectHideFlags: 0
@@ -4742,13 +4764,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1379950250}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1379950255}
+        m_TargetAssemblyTypeName: GameNavigation, Assembly-CSharp
+        m_MethodName: Leave
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5315,9 +5337,9 @@ RectTransform:
   m_Children:
   - {fileID: 1468409646}
   - {fileID: 1572758239}
-  - {fileID: 1828251232}
   - {fileID: 1277793919}
   - {fileID: 789455956}
+  - {fileID: 1828251232}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5910,6 +5932,7 @@ GameObject:
   - component: {fileID: 1818548463}
   - component: {fileID: 1818548462}
   - component: {fileID: 1818548461}
+  - component: {fileID: 1818548465}
   m_Layer: 5
   m_Name: LeftRoom
   m_TagString: Untagged
@@ -5960,19 +5983,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1818548462}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1379950250}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1818548462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6031,6 +6042,22 @@ RectTransform:
   m_AnchoredPosition: {x: -550, y: -250}
   m_SizeDelta: {x: 400, y: 250}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &1818548465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818548460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f95fefa878c25e548bcf2931ecae61c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiElement: {fileID: 157006264}
+  eventSystem: {fileID: 2131295215}
+  showVisualisation: 0
+  navigationColor: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &1828251231
 GameObject:
   m_ObjectHideFlags: 0
@@ -6640,6 +6667,7 @@ GameObject:
   - component: {fileID: 2118505763}
   - component: {fileID: 2118505762}
   - component: {fileID: 2118505764}
+  - component: {fileID: 2118505765}
   m_Layer: 5
   m_Name: RightRoom
   m_TagString: Untagged
@@ -6748,19 +6776,23 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2118505762}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1379950250}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &2118505765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118505760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f95fefa878c25e548bcf2931ecae61c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiElement: {fileID: 157006264}
+  eventSystem: {fileID: 2131295215}
+  showVisualisation: 0
+  navigationColor: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &2131295213
 GameObject:
   m_ObjectHideFlags: 0

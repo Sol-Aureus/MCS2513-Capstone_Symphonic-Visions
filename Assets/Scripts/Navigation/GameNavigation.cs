@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class GameNavigation : MonoBehaviour
 {
@@ -11,10 +13,36 @@ public class GameNavigation : MonoBehaviour
     [SerializeField] private GameObject room2Screen; // Reference to the room 2 screen
     [SerializeField] private GameObject room3Screen; // Reference to the room 3 screen
 
-    // Start is called before the first frame update
+    [Header("Default Buttons")]
+    [SerializeField] private GameObject fightScreenButton; // Reference to the leave button on the stat screen
+    [SerializeField] private GameObject treasureScreenButton; // Reference to the leave button on the treasure screen
+
+    [Header("StatScreenLeaveButton")]
+    [SerializeField] private SetUIInteraction uiInteraction;
+
+    [SerializeField] private EventSystem eventSystem; // Reference to the Event System in the scene
+    private GameObject lastSelectedObject; // Store the last selected object for the Event System
+
+
+    // Stat screen status
+    private bool isStatScreenActive = false;
+
+    // Reset is called when attached to a GameObject in the scene
+    private void Reset()
+    {
+        eventSystem = FindObjectOfType<EventSystem>();
+
+        if (eventSystem == null)
+        {
+            Debug.Log("Did not find an Event System in Scene", context: this);
+        }
+    }
+
+        // Start is called before the first frame update
     void Start()
     {
         HideAllScreens();
+        statScreen.SetActive(isStatScreenActive); // Show the stat screen at the start
 
         // Initialize the RoomManager to ensure it is ready for room generation
         if (RoomManager.main == null)
@@ -48,7 +76,6 @@ public class GameNavigation : MonoBehaviour
     // Method to hide all screens
     public void HideAllScreens()
     {
-        statScreen.SetActive(false);
         fightScreen.SetActive(false);
         treasureScreen.SetActive(false);
         room2Screen.SetActive(false);
@@ -58,8 +85,20 @@ public class GameNavigation : MonoBehaviour
     // Method to load the stat screen
     public void LoadStatScreen()
     {
-        HideAllScreens();
-        statScreen.SetActive(true);
+        Debug.Log(eventSystem.currentSelectedGameObject.GetComponentInChildren<Selectable>());
+        uiInteraction.SetUiElement(eventSystem.currentSelectedGameObject.GetComponentInChildren<Selectable>()); // Set the UI interaction to the stat screen
+
+        isStatScreenActive = !isStatScreenActive; // Toggle the stat screen status
+        statScreen.SetActive(isStatScreenActive);
+
+        if (isStatScreenActive)
+        {
+            Time.timeScale = 0; // Pause the game when the stat screen is active
+        }
+        else
+        {
+            Time.timeScale = 1; // Resume the game when the stat screen is closed
+        }
     }
 
     // Method to load the fight screen
@@ -67,6 +106,7 @@ public class GameNavigation : MonoBehaviour
     {
         HideAllScreens();
         fightScreen.SetActive(true);
+        eventSystem.SetSelectedGameObject(fightScreenButton);
     }
 
     // Method to load the treasure screen
@@ -74,6 +114,7 @@ public class GameNavigation : MonoBehaviour
     {
         HideAllScreens();
         treasureScreen.SetActive(true);
+        eventSystem.SetSelectedGameObject(treasureScreenButton);
     }
 
     // Method to load the room 2 screen
@@ -88,5 +129,10 @@ public class GameNavigation : MonoBehaviour
     {
         HideAllScreens();
         room3Screen.SetActive(true);
+    }
+
+    public void Leave()
+    {
+        RoomManager.main.GenerateRooms(); // Regenerate rooms when leaving the stat screen
     }
 }
