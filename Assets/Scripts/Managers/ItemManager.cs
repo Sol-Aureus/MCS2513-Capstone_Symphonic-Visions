@@ -44,15 +44,31 @@ public class ItemManager : MonoBehaviour
     private Item leftItem; // Item currently displayed on the left
     private Item rightItem; // Item currently displayed on the right
 
+    private Item nullItem = new Item("Remnants", "The item's effects have been absorbed.", null, 0, 0, 0); // Default item when no item is selected
+
+    private bool hasTakenItem = false; // Flag to check if an item has been taken
+
     // Awake is called when the script instance is being loaded
     void Awake()
     {
-        // Initialize the item list with some example items
+        // Initialize the item list with a variety of balanced items (buffs and debuffs)
         itemList = new Item[]
         {
-            new Item("Health Potion", "Restores 50 health points.", listOfSprites[0], 50, 0, 0),
-            new Item("Attack Boost", "Increases attack power by 20.", listOfSprites[1], 0, 20, 0),
-            new Item("Defense Shield", "Increases defense by 15.", listOfSprites[2], 0, 0, 15)
+            new Item("Health Potion", "Increases health (10%).", listOfSprites[1], 0.1f, 0, 0),
+            new Item("Attack Boost", "Increases attack power (10%).", listOfSprites[2], 0, 0.1f, 0),
+            new Item("Defense Shield", "Increases defense (10%).", listOfSprites[3], 0, 0, 0.1f),
+            new Item("Berserker Brew", "Greatly increases attack (+20%) but lowers defense (-10%).", listOfSprites[4], 0, 0.2f, -0.1f),
+            new Item("Iron Bark", "Boosts defense (+15%) but reduces attack (-5%).", listOfSprites[5], 0, -0.05f, 0.15f),
+            new Item("Vitality Elixir", "Increases health (+15%) but lowers attack (-5%).", listOfSprites[6], 0.15f, -0.05f, 0),
+            new Item("Glass Cannon", "Massive attack (+25%) but health drops (-10%).", listOfSprites[7], -0.1f, 0.25f, 0),
+            new Item("Stone Skin", "Huge defense (+20%) but health drops (-10%).", listOfSprites[8], -0.1f, 0, 0.2f),
+            new Item("Balanced Tonic", "Slight boost to all stats (+5%).", listOfSprites[9], 0.05f, 0.05f, 0.05f),
+            new Item("Risky Remedy", "Big health boost (+20%) but defense drops (-10%).", listOfSprites[10], 0.2f, 0, -0.1f),
+            new Item("Swift Strike", "Attack (+10%) and defense (+5%), but health drops (-5%).", listOfSprites[11], -0.05f, 0.1f, 0.05f),
+            new Item("Fortified Brew", "Defense (+10%) and health (+5%), but attack drops (-5%).", listOfSprites[12], 0.05f, -0.05f, 0.1f),
+            new Item("Cursed Draught", "All stats drop (-5%).", listOfSprites[13], -0.05f, -0.05f, -0.05f),
+            new Item("Hero's Mix", "Health (+10%), attack (+10%), but defense drops (-10%).", listOfSprites[14], 0.1f, 0.1f, -0.1f),
+            new Item("Guardian's Gift", "Defense (+15%), health (+5%), but attack drops (-10%).", listOfSprites[15], 0.05f, -0.1f, 0.15f)
         };
     }
 
@@ -86,6 +102,8 @@ public class ItemManager : MonoBehaviour
         rightItemText.text = itemList[randomIndex2].itemName + "\n" + itemList[randomIndex2].itemDescription;
         rightItem = itemList[randomIndex2];
 
+        hasTakenItem = false; // Reset the flag when new items are set
+
         Debug.Log($"Left Item Set: {itemList[randomIndex1].itemName}");
         Debug.Log($"Right Item Set: {itemList[randomIndex2].itemName}");
     }
@@ -93,14 +111,42 @@ public class ItemManager : MonoBehaviour
     // Function to grab the item on the left
     public void GrabLeftItem()
     {
-        // Logic to grab the item on the left
+        if (hasTakenItem)
+        {
+            Debug.Log("An item has already been taken. Cannot grab another item.");
+            return; // Exit if an item has already been taken
+        }
+
+        PlayerStats.main.MultiplyHealth(leftItem.healthBuff);
+        PlayerStats.main.MultiplyAttack(leftItem.attackBuff);
+        PlayerStats.main.MultiplyDefense(leftItem.defenseBuff);
+
+        hasTakenItem = true; // Set the flag to true when an item is taken
+        leftItemPicture.sprite = nullItem.itemPicture;
+        leftItemText.text = nullItem.itemName + "\n" + nullItem.itemDescription;
+        leftItem = nullItem; // Set the left item to null item
+
         Debug.Log("Grabbed left item");
     }
 
     // Function to grab the item on the right
     public void GrabRightItem()
     {
-        // Logic to grab the item on the right
+        if (hasTakenItem)
+        {
+            Debug.Log("An item has already been taken. Cannot grab another item.");
+            return; // Exit if an item has already been taken
+        }
+
+        PlayerStats.main.MultiplyHealth(rightItem.healthBuff);
+        PlayerStats.main.MultiplyAttack(rightItem.attackBuff);
+        PlayerStats.main.MultiplyDefense(rightItem.defenseBuff);
+
+        hasTakenItem = true; // Set the flag to true when an item is taken
+        rightItemPicture.sprite = nullItem.itemPicture;
+        rightItemText.text = nullItem.itemName + "\n" + nullItem.itemDescription;
+        rightItem = nullItem; // Set the left item to null item
+
         Debug.Log("Grabbed right item");
     }
 }

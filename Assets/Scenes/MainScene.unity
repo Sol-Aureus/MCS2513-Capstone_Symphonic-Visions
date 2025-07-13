@@ -1467,7 +1467,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 379141780}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 625665425}
+        m_TargetAssemblyTypeName: ItemManager, Assembly-CSharp
+        m_MethodName: GrabLeftItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &379141780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2128,7 +2140,7 @@ MonoBehaviour:
   defense: 5
   healthBuff: 1
   attackBuff: 1
-  defenseBuff: 1
+  defenseBuff: 0
   healthText: {fileID: 946303960}
   attackText: {fileID: 779655501}
   defenseText: {fileID: 237105297}
@@ -2163,7 +2175,23 @@ MonoBehaviour:
   leftItemText: {fileID: 817551745}
   rightItemPicture: {fileID: 418865748}
   rightItemText: {fileID: 1100320166}
-  listOfSprites: []
+  listOfSprites:
+  - {fileID: 21300000, guid: 28a7cc024cd75d2458e78c9957886f21, type: 3}
+  - {fileID: 21300000, guid: 28a7cc024cd75d2458e78c9957886f21, type: 3}
+  - {fileID: 21300000, guid: 28a7cc024cd75d2458e78c9957886f21, type: 3}
+  - {fileID: 21300000, guid: 28a7cc024cd75d2458e78c9957886f21, type: 3}
+  - {fileID: 21300000, guid: 28a7cc024cd75d2458e78c9957886f21, type: 3}
+  - {fileID: 21300000, guid: 28a7cc024cd75d2458e78c9957886f21, type: 3}
+  - {fileID: 21300000, guid: 28a7cc024cd75d2458e78c9957886f21, type: 3}
+  - {fileID: 21300000, guid: 28a7cc024cd75d2458e78c9957886f21, type: 3}
+  - {fileID: 21300000, guid: 28a7cc024cd75d2458e78c9957886f21, type: 3}
+  - {fileID: 21300000, guid: 28a7cc024cd75d2458e78c9957886f21, type: 3}
+  - {fileID: 21300000, guid: 28a7cc024cd75d2458e78c9957886f21, type: 3}
+  - {fileID: 21300000, guid: 28a7cc024cd75d2458e78c9957886f21, type: 3}
+  - {fileID: 21300000, guid: 28a7cc024cd75d2458e78c9957886f21, type: 3}
+  - {fileID: 21300000, guid: 28a7cc024cd75d2458e78c9957886f21, type: 3}
+  - {fileID: 21300000, guid: 28a7cc024cd75d2458e78c9957886f21, type: 3}
+  - {fileID: 21300000, guid: 28a7cc024cd75d2458e78c9957886f21, type: 3}
 --- !u!1 &638403286
 GameObject:
   m_ObjectHideFlags: 0
@@ -3526,7 +3554,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 865751738}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 625665425}
+        m_TargetAssemblyTypeName: ItemManager, Assembly-CSharp
+        m_MethodName: GrabRightItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &865751738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5517,6 +5557,7 @@ MonoBehaviour:
   fightScreenButton: {fileID: 399893305}
   treasureScreenButton: {fileID: 103891396}
   uiInteraction: {fileID: 157006267}
+  itemManager: {fileID: 625665425}
   eventSystem: {fileID: 2131295215}
 --- !u!1 &1422777255
 GameObject:

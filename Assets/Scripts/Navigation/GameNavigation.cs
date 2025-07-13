@@ -17,8 +17,10 @@ public class GameNavigation : MonoBehaviour
     [SerializeField] private GameObject fightScreenButton; // Reference to the leave button on the stat screen
     [SerializeField] private GameObject treasureScreenButton; // Reference to the leave button on the treasure screen
 
-    [Header("StatScreenLeaveButton")]
+    [Header("References")]
     [SerializeField] private SetUIInteraction uiInteraction;
+    [SerializeField] private ItemManager itemManager; // Reference to the Item Manager for item interactions
+
 
     [SerializeField] private EventSystem eventSystem; // Reference to the Event System in the scene
     private GameObject lastSelectedObject; // Store the last selected object for the Event System
@@ -60,6 +62,22 @@ public class GameNavigation : MonoBehaviour
     void Update()
     {
         RoomTest(KeyCode.H);
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            PlayerStats.main.MultiplyHealth(0.1f); // Increase health by 10%
+            PlayerStats.main.UpdateStats(); // Update player stats
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            PlayerStats.main.MultiplyAttack(0.1f); // Increase attack by 10%
+            PlayerStats.main.UpdateStats(); // Update player stats
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            PlayerStats.main.MultiplyDefense(0.1f); // Increase defense by 10%
+            PlayerStats.main.UpdateStats(); // Update player stats
+        }
     }
 
     // Debugging method to quickly test room generation
@@ -91,6 +109,8 @@ public class GameNavigation : MonoBehaviour
         isStatScreenActive = !isStatScreenActive; // Toggle the stat screen status
         statScreen.SetActive(isStatScreenActive);
 
+        PlayerStats.main.UpdateStats(); // Initialize player stats when the stat screen is opened
+
         if (isStatScreenActive)
         {
             Time.timeScale = 0; // Pause the game when the stat screen is active
@@ -115,6 +135,7 @@ public class GameNavigation : MonoBehaviour
         HideAllScreens();
         treasureScreen.SetActive(true);
         eventSystem.SetSelectedGameObject(treasureScreenButton);
+        itemManager.SetItemDisplay(); // Load items when the treasure screen is opened
     }
 
     // Method to load the room 2 screen
