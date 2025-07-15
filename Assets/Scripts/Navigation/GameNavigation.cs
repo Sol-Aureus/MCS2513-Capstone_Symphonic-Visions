@@ -20,6 +20,7 @@ public class GameNavigation : MonoBehaviour
     [Header("References")]
     [SerializeField] private SetUIInteraction uiInteraction;
     [SerializeField] private ItemManager itemManager; // Reference to the Item Manager for item interactions
+    [SerializeField] private AudioClip buttonClickSound; // Sound to play when a button is clicked
 
 
     [SerializeField] private EventSystem eventSystem; // Reference to the Event System in the scene
@@ -155,5 +156,17 @@ public class GameNavigation : MonoBehaviour
     public void Leave()
     {
         RoomManager.main.GenerateRooms(); // Regenerate rooms when leaving the stat screen
+    }
+
+    public void PlayButtonClickSound()
+    {
+        if (buttonClickSound != null)
+        {
+            SoundFXManager.main.PlaySound(buttonClickSound, transform, 1); // Play the button click sound
+        }
+        else
+        {
+            Debug.LogWarning("Button click sound is not set.");
+        }
     }
 }

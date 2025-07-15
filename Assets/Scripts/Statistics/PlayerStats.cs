@@ -54,7 +54,8 @@ public class PlayerStats : MonoBehaviour
         maxHealth = Mathf.RoundToInt(health * healthBuff);
         currentHealth = Mathf.RoundToInt(health * healthBuff);
         currentAttack = Mathf.RoundToInt(attack * attackBuff);
-        currentDefense = Mathf.RoundToInt((1 - (1 / (1 + defense * defenseBuff))) * 100);
+        float scaledDefense = defense * defenseBuff * 0.01f;
+        currentDefense = Mathf.RoundToInt((scaledDefense / (1 + scaledDefense)) * 100);
         Debug.Log($"Fight started with Health: {currentHealth}, Attack: {currentAttack}, Defense: {currentDefense}");
     }
 
@@ -97,8 +98,8 @@ public class PlayerStats : MonoBehaviour
     // OnGUI is called for rendering and handling GUI events
     private void OnGUI()
     {
-        healthText.text = $"Max Health: {maxHealth}";
-        attackText.text = $"Attack: {currentAttack}";
-        defenseText.text = $"Defense: {currentDefense}";
+        healthText.text = $"Max Health: {health} (+{maxHealth - health})";
+        attackText.text = $"Attack: {attack} (+{currentAttack - attack})";
+        defenseText.text = $"Defense: {defense} (+{currentDefense - defense})";
     }
 }
