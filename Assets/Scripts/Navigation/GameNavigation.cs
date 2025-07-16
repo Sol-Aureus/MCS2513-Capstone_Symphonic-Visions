@@ -26,6 +26,8 @@ public class GameNavigation : MonoBehaviour
     [SerializeField] private EventSystem eventSystem; // Reference to the Event System in the scene
     private GameObject lastSelectedObject; // Store the last selected object for the Event System
 
+    private int currentRoom = 0; // Current room index, used for room navigation
+
 
     // Stat screen status
     private bool isStatScreenActive = false;
@@ -59,28 +61,6 @@ public class GameNavigation : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        RoomTest(KeyCode.H);
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            PlayerStats.main.MultiplyHealth(0.1f); // Increase health by 10%
-            PlayerStats.main.UpdateStats(); // Update player stats
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            PlayerStats.main.MultiplyAttack(0.1f); // Increase attack by 10%
-            PlayerStats.main.UpdateStats(); // Update player stats
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            PlayerStats.main.MultiplyDefense(0.1f); // Increase defense by 10%
-            PlayerStats.main.UpdateStats(); // Update player stats
-        }
-    }
-
     // Debugging method to quickly test room generation
     private void RoomTest(KeyCode key)
     {
@@ -110,7 +90,7 @@ public class GameNavigation : MonoBehaviour
         isStatScreenActive = !isStatScreenActive; // Toggle the stat screen status
         statScreen.SetActive(isStatScreenActive);
 
-        PlayerStats.main.UpdateStats(); // Initialize player stats when the stat screen is opened
+        PlayerController.main.UpdateStats(); // Initialize player stats when the stat screen is opened
 
         if (isStatScreenActive)
         {
@@ -128,6 +108,9 @@ public class GameNavigation : MonoBehaviour
         HideAllScreens();
         fightScreen.SetActive(true);
         eventSystem.SetSelectedGameObject(fightScreenButton);
+        EnemyController.main.AllocatePoints(currentRoom);
+        EnemyController.main.DescribeEnemy(); // Describe the enemy when the fight screen is opened
+
     }
 
     // Method to load the treasure screen
@@ -142,6 +125,7 @@ public class GameNavigation : MonoBehaviour
     // Method to load the room 2 screen
     public void LoadRoom2Screen()
     {
+        currentRoom++; // Increment the current room index
         HideAllScreens();
         room2Screen.SetActive(true);
     }
@@ -149,6 +133,7 @@ public class GameNavigation : MonoBehaviour
     // Method to load the room 3 screen
     public void LoadRoom3Screen()
     {
+        currentRoom++; // Increment the current room index
         HideAllScreens();
         room3Screen.SetActive(true);
     }

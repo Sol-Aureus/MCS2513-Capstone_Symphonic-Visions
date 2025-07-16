@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PlayerStats : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     // Makes functions easy to access
-    public static PlayerStats main;
+    public static PlayerController main;
 
     [Header("Player Stats")]
     [SerializeField] private int health = 100; // Player's health
     [SerializeField] private int attack = 10; // Player's attack power
-    [SerializeField] private int defense = 5; // Player's defense power\
+    [SerializeField] private int defense = 5; // Player's defense power
 
     [Header("Stat Buffs")]
     [SerializeField] private float healthBuff = 1; // Buff to player's health

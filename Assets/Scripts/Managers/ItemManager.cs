@@ -35,7 +35,7 @@ public class ItemManager : MonoBehaviour
         // Properties of the item
         public string itemName { get; } // Name of the item
         public string itemDescription { get; }  // Description of the item
-        public Sprite itemPicture { get; } // Picture of the item (not used in this example, but can be set later)
+        public Sprite itemPicture { get; } // Picture of the item
         public float healthBuff { get; }  // Health buff provided by the item
         public float attackBuff { get; }  // Attack buff provided by the item
         public float defenseBuff { get; }  // Defense buff provided by the item
@@ -117,9 +117,9 @@ public class ItemManager : MonoBehaviour
             return; // Exit if an item has already been taken
         }
 
-        PlayerStats.main.MultiplyHealth(leftItem.healthBuff);
-        PlayerStats.main.MultiplyAttack(leftItem.attackBuff);
-        PlayerStats.main.MultiplyDefense(leftItem.defenseBuff);
+        PlayerController.main.MultiplyHealth(leftItem.healthBuff);
+        PlayerController.main.MultiplyAttack(leftItem.attackBuff);
+        PlayerController.main.MultiplyDefense(leftItem.defenseBuff);
 
         hasTakenItem = true; // Set the flag to true when an item is taken
         leftItemPicture.sprite = nullItem.itemPicture;
@@ -138,9 +138,9 @@ public class ItemManager : MonoBehaviour
             return; // Exit if an item has already been taken
         }
 
-        PlayerStats.main.MultiplyHealth(rightItem.healthBuff);
-        PlayerStats.main.MultiplyAttack(rightItem.attackBuff);
-        PlayerStats.main.MultiplyDefense(rightItem.defenseBuff);
+        PlayerController.main.MultiplyHealth(rightItem.healthBuff);
+        PlayerController.main.MultiplyAttack(rightItem.attackBuff);
+        PlayerController.main.MultiplyDefense(rightItem.defenseBuff);
 
         hasTakenItem = true; // Set the flag to true when an item is taken
         rightItemPicture.sprite = nullItem.itemPicture;

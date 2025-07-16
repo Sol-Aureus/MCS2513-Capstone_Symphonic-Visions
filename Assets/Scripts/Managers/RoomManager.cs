@@ -45,18 +45,13 @@ public class RoomManager : MonoBehaviour
     public void GenerateRooms()
     {
         gameNavigation.HideAllScreens(); // Hide all screens before generating rooms
-        foreach (GameObject floor in floors)
-        {
-            // Set the floor inactive
-            floor.SetActive(false);
-        }
 
         float randomValue = Random.value;
 
         // Chance to determine if we use rooms with three events or two events
         if (randomValue < chanceForThreeEvents)
         {
-            floors[1].SetActive(true); // Activate the floor with three events
+            gameNavigation.LoadRoom3Screen(); // Activate the floor with three events
             foreach (GameObject room in roomsThree)
             {
                 // Randomly determine the event for each room
@@ -99,7 +94,8 @@ public class RoomManager : MonoBehaviour
         }
         else
         {
-            floors[0].SetActive(true); // Activate the floor with two events
+            gameNavigation.LoadRoom2Screen(); // Activate the floor with three events
+
             foreach (GameObject room in roomsTwo)
             {
                 // Randomly determine the event for each room
