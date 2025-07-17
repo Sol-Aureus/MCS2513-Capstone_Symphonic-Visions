@@ -12,15 +12,26 @@ public class EnemyController : MonoBehaviour
     [Header("Enemy Stats")]
     [SerializeField] private int startingPoints = 100; // Starting points for the enemy
     [SerializeField] private int health = 0; // Player's health
+    private int currentHealth = 0; // Current health of the enemy
     [SerializeField] private int attack = 0; // Player's attack power
     [SerializeField] private int defense = 0; // Player's defense power
+    [SerializeField] private int attackCharge = 0; // Attack charge for the enemy
 
     [SerializeField] private Sprite[] listOfSprites; // List of sprites to be used for enemy pictures
+
+    [Header("Enemy Action Chances")]
+    [SerializeField] private float chanceToAttack; // Chance for the enemy to attack
+    [SerializeField] private float chanceToDefend; // Chance for the enemy to defend
+    [SerializeField] private float chanceToCharge; // Chance for the enemy to make the next attack stronger
+    [SerializeField] private float chanceToThink; // Chance for the enemy to do nothing
 
     [Header("UI Elements")]
     [SerializeField] private TextMeshProUGUI fightText; // UI text for displaying any fight-related messages
     [SerializeField] private GameObject fightTextBox; // UI text for displaying enemy stats
     [SerializeField] private Image enemyImage; // UI image for displaying the enemy picture
+    [SerializeField] private Slider healthSlider; // UI slider for displaying enemy health
+
+    private bool isBlocked = false; // Flag to check if the player has blocked an attack
 
     private EnemyType[] enemyTypes;
 
@@ -42,6 +53,8 @@ public class EnemyController : MonoBehaviour
 
     private string enemyName;
     private string enemyDescription;
+
+    private int nextAction = 0; // Index for the next action to be performed
 
     // Awake is called when the script instance is being loaded
     private void Awake()
@@ -77,9 +90,10 @@ public class EnemyController : MonoBehaviour
         int remainingPoints = Mathf.RoundToInt(startingPoints * (1 + floor * 0.05f));
 
         health = Mathf.RoundToInt(Random.Range(10, remainingPoints * 0.8f));
+        currentHealth = health; // Set current health to initial health
         remainingPoints -= health;
 
-        attack = Mathf.RoundToInt(Random.Range(10, remainingPoints * 0.8f));
+        attack = Mathf.RoundToInt(Random.Range(10, remainingPoints * 0.7f));
         remainingPoints -= attack;
 
         float scaledDefense = remainingPoints * 0.01f;
@@ -91,19 +105,26 @@ public class EnemyController : MonoBehaviour
         enemyDescription = enemyTypes[randomIndex].enemyDescription;
         enemyImage.sprite = enemyTypes[randomIndex].enemyPicture;
 
+        DescribeEnemy();
+        UpdateHealth();
+
         Debug.Log($"Enemy Stats - Health: {health}, Attack: {attack}, Defense: {defense}");
     }
 
     // Function to update the fight text with enemy stats
-    public void DescribeEnemy()
+    private void DescribeEnemy()
     {
         fightText.text = $"{enemyName}:\n" +
                           $"Health: {health}\n" +
                           $"Attack: {attack}\n" +
                           $"Defense: {defense}\n" +
                           $"{enemyDescription}";
+
+        ChooseAction(); // Choose the first action for the enemy
+        NextActionText();
+
         fightTextBox.SetActive(true);
-        StartCoroutine(HideFightTextAfterDelay(5f));
+        StartCoroutine(HideFightTextAfterDelay(6f));
     }
 
     // Function to delay hiding the fight text
@@ -111,6 +132,146 @@ public class EnemyController : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         fightTextBox.SetActive(false);
+        fightText.text = ""; // Clear the fight text after hiding
     }
 
+    // Function to choose an action based on random chance
+    public void ChooseAction()
+    {
+        float randomIndex = Random.value;
+
+        if (randomIndex < chanceToAttack)
+        {
+            nextAction = 0; // Attack
+        }
+        else if (randomIndex < chanceToAttack + chanceToDefend)
+        {
+            nextAction = 1; // Defend
+        }
+        else if (randomIndex < chanceToAttack + chanceToDefend + chanceToCharge)
+        {
+            nextAction = 2; // Charge
+        }
+        else
+        {
+            nextAction = 3; // Think
+        }
+
+    }
+
+    // Function to use the queued action
+    public void UseQueuedAction()
+    {
+        if (nextAction == 0)
+        {
+            Attack();
+        }
+        else if (nextAction == 1)
+        {
+            Defend();
+        }
+        else if (nextAction == 2)
+        {
+            Charge();
+        }
+        else if (nextAction == 3)
+        {
+            Think();
+        }
+        ChooseAction(); // Choose the next action after the current one is executed
+        NextActionText();
+    }
+
+    // Function to display the next action text
+    private void NextActionText()
+    {
+        if (nextAction == 0)
+        {
+            fightText.text += $"\n{enemyName} is preparing to attack!";
+        }
+        else if (nextAction == 1)
+        {
+            fightText.text += $"\n{enemyName} is going to defend!";
+        }
+        else if (nextAction == 2)
+        {
+            fightText.text += $"\n{enemyName} is going to charge its next attack!";
+        }
+        else if (nextAction == 3)
+        {
+            fightText.text += $"\n{enemyName} will take some time to think about its next move!";
+        }
+    }
+
+    // Function to deal damage to the player
+    private void Attack()
+    {
+        fightText.text += $"{enemyName} attacks you for {attack * (attackCharge + 1)} damage!";
+        fightTextBox.SetActive(true);
+        StartCoroutine(HideFightTextAfterDelay(4f));
+
+        PlayerController.main.TakeDamage(attack * (attackCharge + 1));
+        attackCharge = 0; // Reset attack charge after using it
+    }
+
+    // Function to block the next attack
+    private void Defend()
+    {
+        fightText.text += $"{enemyName} is blocking your attack!";
+        isBlocked = true; // Set block status to true
+    }
+
+    // Function to charge the next attack
+    private void Charge()
+    {
+        attackCharge++;
+        fightText.text += $"{enemyName} is charging its next attack!";
+        fightTextBox.SetActive(true);
+        StartCoroutine(HideFightTextAfterDelay(4f));
+    }
+
+    // Function to make the enemy think, simulating a delay in action
+    private void Think()
+    {
+        fightText.text += $"{enemyName} is thinking...";
+        fightTextBox.SetActive(true);
+        StartCoroutine(HideFightTextAfterDelay(4f));
+    }
+    
+    // Function to damage the player
+    public void TakeDamage(int damage)
+    {
+        if (isBlocked)
+        {
+            fightText.text += $"You attaced the enemy for {PlayerController.main.GetAttack()} damage!\n";
+
+            isBlocked = false; // Reset block status after blocking
+            damage = Mathf.RoundToInt(damage * (1 - ((float)defense / 100))); // Reduce damage based on defense
+
+            fightText.text += $"{enemyName} blocked the attack!\n" +
+                $"They took {damage} damage";
+            fightTextBox.SetActive(true);
+            StartCoroutine(HideFightTextAfterDelay(4f));
+
+            currentHealth -= damage;
+            UpdateHealth();
+        }
+        else
+        {
+            fightText.text += $"You attaced the enemy for {PlayerController.main.GetAttack()} damage!\n";
+            fightText.text += $"{enemyName} took {damage} damage";
+            fightTextBox.SetActive(true);
+            StartCoroutine(HideFightTextAfterDelay(4f));
+
+            currentHealth -= damage;
+            UpdateHealth();
+        }
+    }
+
+    // Function to show the enemy's health in the UI
+    public void UpdateHealth()
+    {
+        healthSlider.value = (float)currentHealth / health;
+        Debug.Log($"Enemy Health Updated: {currentHealth}/{health}");
+    }
 }

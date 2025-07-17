@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,11 +23,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthText; // UI text for displaying health
     [SerializeField] private TextMeshProUGUI attackText; // UI text for displaying attack power
     [SerializeField] private TextMeshProUGUI defenseText; // UI text for displaying defense power
+    [SerializeField] private GameObject fightTextBox; // UI text box for displaying fight-related messages
+    [SerializeField] private TextMeshProUGUI fightText; // UI text for displaying fight-related messages
+    [SerializeField] private Slider healthSlider; // UI slider for displaying health
 
-    private float maxHealth; // Maximum health of the player
-    private float currentHealth; // Current health of the player
-    private float currentAttack; // Current attack power of the player
-    private float currentDefense; // Current defense power of the player
+    private int maxHealth; // Maximum health of the player
+    private int currentHealth; // Current health of the player
+    private int currentAttack; // Current attack power of the player
+    private int currentDefense; // Current defense power of the player
+    private bool isBlocked = false; // Flag to check if the player is blocked
 
     // Awake is called when the script instance is being loaded
     private void Awake()
@@ -47,12 +52,26 @@ public class PlayerController : MonoBehaviour
         UpdateStats();
     }
 
+    // Function to update the player's health slider
+    public void UpdateHealth()
+    {
+        healthSlider.value = (float)currentHealth / maxHealth;
+        Debug.Log($"Player Health Updated: {currentHealth}/{maxHealth}");
+    }
+
+    public void ResetHealth()
+    {
+        // Reset the player's health to the maximum health
+        currentHealth = maxHealth;
+        UpdateHealth();
+        Debug.Log("Player's health has been reset to maximum.");
+    }
+
     // Function to initialize the player's stats
     public void UpdateStats()
     {
         // Initialize the player's stats at the start of a fight
         maxHealth = Mathf.RoundToInt(health * healthBuff);
-        currentHealth = Mathf.RoundToInt(health * healthBuff);
         currentAttack = Mathf.RoundToInt(attack * attackBuff);
         float scaledDefense = defense * defenseBuff * 0.01f;
         currentDefense = Mathf.RoundToInt((scaledDefense / (1 + scaledDefense)) * 100);
@@ -60,9 +79,9 @@ public class PlayerController : MonoBehaviour
     }
 
     // Function to get the player's current health
-    public float GetHealth()
+    public int GetHealth()
     {
-        return maxHealth/currentHealth;
+        return currentHealth / maxHealth;
     }
 
     // Function to set the player's health
@@ -72,7 +91,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Function to get the player's attack power
-    public float GetAttack()
+    public int GetAttack()
     {
         return currentAttack;
     }
@@ -84,9 +103,9 @@ public class PlayerController : MonoBehaviour
     }
 
     // Function to get the player's defense power
-    public float GetDefense()
+    public void Defend()
     {
-        return currentDefense;
+        isBlocked = true;
     }
 
     // Function to set the player's defense power
@@ -101,5 +120,30 @@ public class PlayerController : MonoBehaviour
         healthText.text = $"Max Health: {health} (+{maxHealth - health})";
         attackText.text = $"Attack: {attack} (+{currentAttack - attack})";
         defenseText.text = $"Defense: {defense} (+{currentDefense - defense})";
+    }
+
+    // Function to damage the player
+    public void TakeDamage(int damage)
+    {
+        if (isBlocked)
+        {
+            isBlocked = false; // Reset block status after blocking
+            damage = Mathf.RoundToInt(damage * (1 - ((float)currentDefense / 100))); // Reduce damage based on defense
+
+            fightText.text += $"\nYou blocked the attack!\n" +
+                $"You took {damage} damage";
+            fightTextBox.SetActive(true);
+
+            currentHealth -= damage;
+            UpdateHealth();
+        }
+        else
+        {
+            fightText.text += $"\nYou took {damage} damage";
+            fightTextBox.SetActive(true);
+
+            currentHealth -= damage;
+            UpdateHealth();
+        }
     }
 }

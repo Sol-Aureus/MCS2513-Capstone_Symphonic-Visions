@@ -61,17 +61,6 @@ public class GameNavigation : MonoBehaviour
         }
     }
 
-    // Debugging method to quickly test room generation
-    private void RoomTest(KeyCode key)
-    {
-        if (Input.GetKeyDown(key))
-        {
-            // If the H key is pressed, generate rooms
-            RoomManager.main.GenerateRooms();
-            Debug.Log("Rooms generated.");
-        }
-    }
-
     // Method to hide all screens
     public void HideAllScreens()
     {
@@ -108,9 +97,8 @@ public class GameNavigation : MonoBehaviour
         HideAllScreens();
         fightScreen.SetActive(true);
         eventSystem.SetSelectedGameObject(fightScreenButton);
+        PlayerController.main.ResetHealth(); // Update player stats when the fight screen is opened
         EnemyController.main.AllocatePoints(currentRoom);
-        EnemyController.main.DescribeEnemy(); // Describe the enemy when the fight screen is opened
-
     }
 
     // Method to load the treasure screen

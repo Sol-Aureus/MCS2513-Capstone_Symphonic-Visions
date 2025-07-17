@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class FightManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private int turnCounter = 0; // Counter to keep track of turns in the fight
+
+    // Function to have the player attack the enemy
+    public void Attack()
     {
-        
+        turnCounter++; // Increment the turn counter
+        EnemyController.main.TakeDamage(PlayerController.main.GetAttack());
+        EnemyController.main.UseQueuedAction();
     }
 
-    // Update is called once per frame
-    void Update()
+    // Function to have the player defend against the enemy's attack
+    public void Defend()
     {
-        
+        turnCounter++; // Increment the turn counter
+        PlayerController.main.Defend();
+        EnemyController.main.UseQueuedAction();
     }
 }
