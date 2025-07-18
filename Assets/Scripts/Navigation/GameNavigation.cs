@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameNavigation : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class GameNavigation : MonoBehaviour
     [SerializeField] private GameObject treasureScreen; // Reference to the treasure screen
     [SerializeField] private GameObject room2Screen; // Reference to the room 2 screen
     [SerializeField] private GameObject room3Screen; // Reference to the room 3 screen
+    [SerializeField] private GameObject deathScreen; // Reference to the death screen
 
     [Header("Default Buttons")]
     [SerializeField] private GameObject fightScreenButton; // Reference to the leave button on the stat screen
@@ -21,9 +24,8 @@ public class GameNavigation : MonoBehaviour
     [SerializeField] private SetUIInteraction uiInteraction;
     [SerializeField] private ItemManager itemManager; // Reference to the Item Manager for item interactions
     [SerializeField] private AudioClip buttonClickSound; // Sound to play when a button is clicked
-
-
     [SerializeField] private EventSystem eventSystem; // Reference to the Event System in the scene
+    [SerializeField] private TextMeshProUGUI deathText; // Text to display when the player dies
     private GameObject lastSelectedObject; // Store the last selected object for the Event System
 
     private int currentRoom = 0; // Current room index, used for room navigation
@@ -126,11 +128,22 @@ public class GameNavigation : MonoBehaviour
         room3Screen.SetActive(true);
     }
 
+    // Method to leave the fight screen and return to the rooms selection
     public void Leave()
     {
         RoomManager.main.GenerateRooms(); // Regenerate rooms when leaving the stat screen
     }
 
+    // Function to debuff the player after running away from a fight
+    public void Run()
+    {
+        PlayerController.main.MultiplyHealth(-0.08f);
+        PlayerController.main.MultiplyAttack(-0.08f);
+        PlayerController.main.MultiplyDefense(-0.08f);
+        Leave(); // Leave the fight screen and return to the rooms selection
+    }
+
+    // Function to play the button click sound
     public void PlayButtonClickSound()
     {
         if (buttonClickSound != null)
@@ -141,5 +154,31 @@ public class GameNavigation : MonoBehaviour
         {
             Debug.LogWarning("Button click sound is not set.");
         }
+    }
+
+    // Function to display the death screen when the player dies
+    public void DiplayDeathScreen()
+    {
+        Time.timeScale = 0; // Pause the game when the death screen is displayed
+
+        deathScreen.SetActive(true); // Show the death screen   
+        deathText.text = $"You surived {currentRoom} rooms\n"
+            + "You finals stats:\n"
+            + $"Health: {PlayerController.main.GetHealth()}\n"
+            + $"Attack: {PlayerController.main.GetAttack()}\n"
+            + $"Defense: {PlayerController.main.GetDefense()}"; // Set the death text
+    }
+
+    // Function to reset the level, can be used to restart the game or reset the current level
+    public void ResetLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    // Function to load the main menu scene
+    public void MainMenu()
+    {
+        Time.timeScale = 1; // Resume the game time before loading the main menu
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 }

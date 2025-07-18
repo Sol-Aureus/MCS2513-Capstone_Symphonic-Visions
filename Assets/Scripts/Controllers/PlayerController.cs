@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject fightTextBox; // UI text box for displaying fight-related messages
     [SerializeField] private TextMeshProUGUI fightText; // UI text for displaying fight-related messages
     [SerializeField] private Slider healthSlider; // UI slider for displaying health
+    [SerializeField] private GameNavigation gameNavigator; // Reference to the player GameObject
 
     private int maxHealth; // Maximum health of the player
     private int currentHealth; // Current health of the player
@@ -81,7 +82,7 @@ public class PlayerController : MonoBehaviour
     // Function to get the player's current health
     public int GetHealth()
     {
-        return currentHealth / maxHealth;
+        return maxHealth;
     }
 
     // Function to set the player's health
@@ -103,6 +104,12 @@ public class PlayerController : MonoBehaviour
     }
 
     // Function to get the player's defense power
+    public int GetDefense()
+    {
+        return currentDefense;
+    }
+
+    // Function to get the player's defense power
     public void Defend()
     {
         isBlocked = true;
@@ -117,9 +124,9 @@ public class PlayerController : MonoBehaviour
     // OnGUI is called for rendering and handling GUI events
     private void OnGUI()
     {
-        healthText.text = $"Max Health: {health} (+{maxHealth - health})";
-        attackText.text = $"Attack: {attack} (+{currentAttack - attack})";
-        defenseText.text = $"Defense: {defense} (+{currentDefense - defense})";
+        healthText.text = $"Max Health: {maxHealth}";
+        attackText.text = $"Attack: {currentAttack}";
+        defenseText.text = $"Defense: {currentDefense}";
     }
 
     // Function to damage the player
@@ -144,6 +151,13 @@ public class PlayerController : MonoBehaviour
 
             currentHealth -= damage;
             UpdateHealth();
+        }
+
+        if (currentHealth <= 0)
+        {
+            fightText.text += "\nYou have died!";
+            fightTextBox.SetActive(true);
+            gameNavigator.DiplayDeathScreen(); // Display death screen if health is zero
         }
     }
 }

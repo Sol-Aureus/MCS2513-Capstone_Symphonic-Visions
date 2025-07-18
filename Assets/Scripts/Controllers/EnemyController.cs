@@ -32,6 +32,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Slider healthSlider; // UI slider for displaying enemy health
 
     private bool isBlocked = false; // Flag to check if the player has blocked an attack
+    private bool fightEnded = false; // Flag to check if the fight has ended
 
     private EnemyType[] enemyTypes;
 
@@ -108,6 +109,8 @@ public class EnemyController : MonoBehaviour
         DescribeEnemy();
         UpdateHealth();
 
+        fightEnded = false; // Reset fight ended flag
+
         Debug.Log($"Enemy Stats - Health: {health}, Attack: {attack}, Defense: {defense}");
     }
 
@@ -133,6 +136,14 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(delay);
         fightTextBox.SetActive(false);
         fightText.text = ""; // Clear the fight text after hiding
+    }
+    
+    // Function to delay hiding the fight text
+    private IEnumerator EndFight(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        HideFightTextAfterDelay(0f);
+        RoomManager.main.GenerateRooms(); // Regenerate rooms after the fight ends
     }
 
     // Function to choose an action based on random chance
@@ -162,6 +173,10 @@ public class EnemyController : MonoBehaviour
     // Function to use the queued action
     public void UseQueuedAction()
     {
+        if (fightEnded)
+        {
+            return; // If the fight has ended, do not execute any action
+        }
         if (nextAction == 0)
         {
             Attack();
@@ -217,8 +232,10 @@ public class EnemyController : MonoBehaviour
     // Function to block the next attack
     private void Defend()
     {
-        fightText.text += $"{enemyName} is blocking your attack!";
         isBlocked = true; // Set block status to true
+        fightText.text += $"{enemyName} is blocking your attack!";
+        fightTextBox.SetActive(true);
+        StartCoroutine(HideFightTextAfterDelay(4f));
     }
 
     // Function to charge the next attack
@@ -249,7 +266,7 @@ public class EnemyController : MonoBehaviour
             damage = Mathf.RoundToInt(damage * (1 - ((float)defense / 100))); // Reduce damage based on defense
 
             fightText.text += $"{enemyName} blocked the attack!\n" +
-                $"They took {damage} damage";
+                $"They took {damage} damage\n";
             fightTextBox.SetActive(true);
             StartCoroutine(HideFightTextAfterDelay(4f));
 
@@ -259,12 +276,24 @@ public class EnemyController : MonoBehaviour
         else
         {
             fightText.text += $"You attaced the enemy for {PlayerController.main.GetAttack()} damage!\n";
-            fightText.text += $"{enemyName} took {damage} damage";
+            fightText.text += $"{enemyName} took {damage} damage\n";
             fightTextBox.SetActive(true);
             StartCoroutine(HideFightTextAfterDelay(4f));
 
             currentHealth -= damage;
             UpdateHealth();
+        }
+
+        if (currentHealth <= 0)
+        {
+            fightText.text = $"{enemyName} has been defeated!\n"
+                + "You gain +8% to all stats!";
+            fightTextBox.SetActive(true);
+            PlayerController.main.MultiplyHealth(0.08f);
+            PlayerController.main.MultiplyAttack(0.08f);
+            PlayerController.main.MultiplyDefense(0.08f);
+            fightEnded = true; // Set fight ended flag to true
+            StartCoroutine(EndFight(4f));
         }
     }
 
