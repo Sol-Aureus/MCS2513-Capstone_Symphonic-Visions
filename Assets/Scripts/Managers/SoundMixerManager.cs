@@ -44,8 +44,6 @@ public class SoundMixerManager : MonoBehaviour
         // Convert 0 to 10 range to -80 to 0 dB range
         level = Mathf.Log10((level + 0.00001f) / 10) * 20;
         audioMixer.SetFloat("MusicVolume", level);
-
-        SoundFXManager.main.PlaySound(volumeChange, transform, 1f); // Play sound effect when volume changes
     }
 
     // Method to set the narration volume level
