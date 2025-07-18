@@ -22,6 +22,21 @@ public class RememberCurrentSelection : MonoBehaviour
         lastSelectedElement = eventSystem.firstSelectedGameObject;
     }
 
+    private void Start()
+    {
+        if (!eventSystem)
+        {
+            Debug.LogError("Event System is not set or found in the scene.", context: this);
+            return;
+        }
+        // Set the first selected element to the first selected GameObject in the Event System
+        lastSelectedElement = eventSystem.firstSelectedGameObject;
+        if (lastSelectedElement)
+        {
+            StartCoroutine(TextToSpeakControl.main.SpeakText($"Selected {lastSelectedElement.name}", 0)); // Speak the name of the first selected element
+        }
+    }
+
     private void Update()
     {
         if (!eventSystem)
@@ -33,6 +48,7 @@ public class RememberCurrentSelection : MonoBehaviour
         if (eventSystem.currentSelectedGameObject && lastSelectedElement != eventSystem.currentSelectedGameObject)
         {
             lastSelectedElement = eventSystem.currentSelectedGameObject;
+            StartCoroutine(TextToSpeakControl.main.SpeakText($"Selected {lastSelectedElement.name}", 0)); // Speak the name of the selected element
         }
 
         if (!eventSystem.currentSelectedGameObject && lastSelectedElement)

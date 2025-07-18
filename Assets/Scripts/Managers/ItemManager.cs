@@ -104,6 +104,8 @@ public class ItemManager : MonoBehaviour
 
         hasTakenItem = false; // Reset the flag when new items are set
 
+        StartCoroutine(TextToSpeakControl.main.SpeakText($"You found two items: Left item is {leftItem.itemName} and right item is {rightItem.itemName}. {leftItem.itemName}, {leftItem.itemDescription}. {rightItem.itemName}, {rightItem.itemDescription}. Choose wisely!", 2));
+
         Debug.Log($"Left Item Set: {itemList[randomIndex1].itemName}");
         Debug.Log($"Right Item Set: {itemList[randomIndex2].itemName}");
     }
@@ -120,6 +122,8 @@ public class ItemManager : MonoBehaviour
         PlayerController.main.MultiplyHealth(leftItem.healthBuff);
         PlayerController.main.MultiplyAttack(leftItem.attackBuff);
         PlayerController.main.MultiplyDefense(leftItem.defenseBuff);
+
+        StartCoroutine(TextToSpeakControl.main.SpeakText($"You grabbed the {leftItem.itemName}.", 0)); // Speak the item name and description
 
         hasTakenItem = true; // Set the flag to true when an item is taken
         leftItemPicture.sprite = nullItem.itemPicture;
@@ -141,6 +145,8 @@ public class ItemManager : MonoBehaviour
         PlayerController.main.MultiplyHealth(rightItem.healthBuff);
         PlayerController.main.MultiplyAttack(rightItem.attackBuff);
         PlayerController.main.MultiplyDefense(rightItem.defenseBuff);
+
+        StartCoroutine(TextToSpeakControl.main.SpeakText($"You grabbed the {rightItem.itemName}.", 0)); // Speak the item name and description
 
         hasTakenItem = true; // Set the flag to true when an item is taken
         rightItemPicture.sprite = nullItem.itemPicture;

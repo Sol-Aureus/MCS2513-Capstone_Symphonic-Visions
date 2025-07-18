@@ -127,12 +127,12 @@ public class EnemyController : MonoBehaviour
         NextActionText();
 
         fightTextBox.SetActive(true);
-        StartCoroutine(HideFightTextAfterDelay(6f));
     }
 
     // Function to delay hiding the fight text
     private IEnumerator HideFightTextAfterDelay(float delay)
     {
+        StartCoroutine(TextToSpeakControl.main.SpeakText(fightText.text, 1.2f)); // Start the end fight coroutine
         yield return new WaitForSeconds(delay);
         fightTextBox.SetActive(false);
         fightText.text = ""; // Clear the fight text after hiding
@@ -216,6 +216,7 @@ public class EnemyController : MonoBehaviour
         {
             fightText.text += $"\n{enemyName} will take some time to think about its next move!";
         }
+        StartCoroutine(HideFightTextAfterDelay(12f));
     }
 
     // Function to deal damage to the player
@@ -223,7 +224,6 @@ public class EnemyController : MonoBehaviour
     {
         fightText.text += $"{enemyName} attacks you for {attack * (attackCharge + 1)} damage!";
         fightTextBox.SetActive(true);
-        StartCoroutine(HideFightTextAfterDelay(4f));
 
         PlayerController.main.TakeDamage(attack * (attackCharge + 1));
         attackCharge = 0; // Reset attack charge after using it
@@ -235,7 +235,6 @@ public class EnemyController : MonoBehaviour
         isBlocked = true; // Set block status to true
         fightText.text += $"{enemyName} is blocking your attack!";
         fightTextBox.SetActive(true);
-        StartCoroutine(HideFightTextAfterDelay(4f));
     }
 
     // Function to charge the next attack
@@ -244,7 +243,6 @@ public class EnemyController : MonoBehaviour
         attackCharge++;
         fightText.text += $"{enemyName} is charging its next attack!";
         fightTextBox.SetActive(true);
-        StartCoroutine(HideFightTextAfterDelay(4f));
     }
 
     // Function to make the enemy think, simulating a delay in action
@@ -252,7 +250,6 @@ public class EnemyController : MonoBehaviour
     {
         fightText.text += $"{enemyName} is thinking...";
         fightTextBox.SetActive(true);
-        StartCoroutine(HideFightTextAfterDelay(4f));
     }
     
     // Function to damage the player
@@ -260,7 +257,7 @@ public class EnemyController : MonoBehaviour
     {
         if (isBlocked)
         {
-            fightText.text += $"You attaced the enemy for {PlayerController.main.GetAttack()} damage!\n";
+            fightText.text += $"You attacked the enemy for {PlayerController.main.GetAttack()} damage!\n";
 
             isBlocked = false; // Reset block status after blocking
             damage = Mathf.RoundToInt(damage * (1 - ((float)defense / 100))); // Reduce damage based on defense
@@ -268,21 +265,20 @@ public class EnemyController : MonoBehaviour
             fightText.text += $"{enemyName} blocked the attack!\n" +
                 $"They took {damage} damage\n";
             fightTextBox.SetActive(true);
-            StartCoroutine(HideFightTextAfterDelay(4f));
 
             currentHealth -= damage;
             UpdateHealth();
         }
         else
         {
-            fightText.text += $"You attaced the enemy for {PlayerController.main.GetAttack()} damage!\n";
+            fightText.text += $"You attacked the enemy for {PlayerController.main.GetAttack()} damage!\n";
             fightText.text += $"{enemyName} took {damage} damage\n";
             fightTextBox.SetActive(true);
-            StartCoroutine(HideFightTextAfterDelay(4f));
 
             currentHealth -= damage;
             UpdateHealth();
         }
+        StartCoroutine(HideFightTextAfterDelay(12f));
 
         if (currentHealth <= 0)
         {

@@ -91,6 +91,10 @@ public class RoomManager : MonoBehaviour
             // Set the UI interaction to the first room with three events
             uiInteraction.SetUiElement(statList[1]);
             uiInteraction.JumpToElement();
+
+            StartCoroutine(TextToSpeakControl.main.SpeakText($"Left room is {roomsThree[0].GetComponentInChildren<TextMeshProUGUI>().text}."
+                + $"Middle room is {roomsThree[1].GetComponentInChildren<TextMeshProUGUI>().text}."
+                + $"Right room is {roomsThree[2].GetComponentInChildren<TextMeshProUGUI>().text}.", 2)); // Speak the name of the first room
         }
         else
         {
@@ -135,6 +139,9 @@ public class RoomManager : MonoBehaviour
             // Set the UI interaction to the first room with three events
             uiInteraction.SetUiElement(statList[0]);
             uiInteraction.JumpToElement();
+
+            StartCoroutine(TextToSpeakControl.main.SpeakText($"Left room is {roomsTwo[0].GetComponentInChildren<TextMeshProUGUI>().text}."
+                + $"Right room is {roomsTwo[1].GetComponentInChildren<TextMeshProUGUI>().text}.", 2)); // Speak the name of the first room
         }
     }
 }

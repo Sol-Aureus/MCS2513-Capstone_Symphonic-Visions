@@ -9,7 +9,6 @@ public class FightManager : MonoBehaviour
     // Function to have the player attack the enemy
     public void Attack()
     {
-        turnCounter++; // Increment the turn counter
         EnemyController.main.TakeDamage(PlayerController.main.GetAttack());
         EnemyController.main.UseQueuedAction();
     }
@@ -17,7 +16,6 @@ public class FightManager : MonoBehaviour
     // Function to have the player defend against the enemy's attack
     public void Defend()
     {
-        turnCounter++; // Increment the turn counter
         PlayerController.main.Defend();
         EnemyController.main.UseQueuedAction();
     }

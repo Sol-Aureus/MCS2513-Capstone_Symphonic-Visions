@@ -85,11 +85,7 @@ public class GameNavigation : MonoBehaviour
 
         if (isStatScreenActive)
         {
-            Time.timeScale = 0; // Pause the game when the stat screen is active
-        }
-        else
-        {
-            Time.timeScale = 1; // Resume the game when the stat screen is closed
+            StartCoroutine(TextToSpeakControl.main.SpeakText($"Your Health is {PlayerController.main.GetHealth()}. Your Attack is {PlayerController.main.GetAttack()}. Your Defense is {PlayerController.main.GetDefense()}.", 2));
         }
     }
 
@@ -167,6 +163,8 @@ public class GameNavigation : MonoBehaviour
             + $"Health: {PlayerController.main.GetHealth()}\n"
             + $"Attack: {PlayerController.main.GetAttack()}\n"
             + $"Defense: {PlayerController.main.GetDefense()}"; // Set the death text
+
+        StartCoroutine(TextToSpeakControl.main.SpeakText(deathText.text, 2)); // Speak the death text
     }
 
     // Function to reset the level, can be used to restart the game or reset the current level
