@@ -19,6 +19,7 @@ public class GameNavigation : MonoBehaviour
     [Header("Default Buttons")]
     [SerializeField] private GameObject fightScreenButton; // Reference to the leave button on the stat screen
     [SerializeField] private GameObject treasureScreenButton; // Reference to the leave button on the treasure screen
+    [SerializeField] private GameObject deathScreenButton; // Reference to the leave button on the treasure screen
 
     [Header("References")]
     [SerializeField] private SetUIInteraction uiInteraction;
@@ -70,6 +71,7 @@ public class GameNavigation : MonoBehaviour
         treasureScreen.SetActive(false);
         room2Screen.SetActive(false);
         room3Screen.SetActive(false);
+        deathScreen.SetActive(false);
     }
 
     // Method to load the stat screen
@@ -155,11 +157,10 @@ public class GameNavigation : MonoBehaviour
     // Function to display the death screen when the player dies
     public void DiplayDeathScreen()
     {
-        Time.timeScale = 0; // Pause the game when the death screen is displayed
-
-        deathScreen.SetActive(true); // Show the death screen   
-        deathText.text = $"You surived {currentRoom} rooms\n"
-            + "You finals stats:\n"
+        deathScreen.SetActive(true); // Show the death screen
+        eventSystem.SetSelectedGameObject(deathScreenButton);
+        deathText.text = $"You died on floor {currentRoom}\n\n"
+            + "Your finals stats:\n"
             + $"Health: {PlayerController.main.GetHealth()}\n"
             + $"Attack: {PlayerController.main.GetAttack()}\n"
             + $"Defense: {PlayerController.main.GetDefense()}"; // Set the death text

@@ -44,7 +44,7 @@ public class ItemManager : MonoBehaviour
     private Item leftItem; // Item currently displayed on the left
     private Item rightItem; // Item currently displayed on the right
 
-    private Item nullItem = new Item("Remnants", "The item's effects have been absorbed.", null, 0, 0, 0); // Default item when no item is selected
+    private Item nullItem; // Default item when no item is selected
 
     private bool hasTakenItem = false; // Flag to check if an item has been taken
 
@@ -69,7 +69,8 @@ public class ItemManager : MonoBehaviour
             new Item("Cursed Draught", "All stats drop (-5%).", listOfSprites[13], -0.05f, -0.05f, -0.05f),
             new Item("Hero's Mix", "Health (+10%), attack (+10%), but defense drops (-10%).", listOfSprites[14], 0.1f, 0.1f, -0.1f),
             new Item("Guardian's Gift", "Defense (+15%), health (+5%), but attack drops (-10%).", listOfSprites[15], 0.05f, -0.1f, 0.15f)
-        };
+        }; 
+        nullItem = new Item("Remnants", "The item's effects have been absorbed.", listOfSprites[0], 0, 0, 0);
     }
 
     // Start is called before the first frame update

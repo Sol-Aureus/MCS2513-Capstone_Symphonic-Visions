@@ -78,7 +78,7 @@ public class EnemyController : MonoBehaviour
             new EnemyType("Dragon", "A fearsome beast that breathes fire.", listOfSprites[3]),
             new EnemyType("Vampire", "A bloodsucking creature of the night.", listOfSprites[4]),
             new EnemyType("Skeleton", "A rattling undead warrior.", listOfSprites[5]),
-            new EnemyType("Werewolf", "A ferocious beast under the full moon.", listOfSprites[6]),
+            new EnemyType("Rat", "A ferocious beast under the full moon.", listOfSprites[6]),
             new EnemyType("Witch", "A cunning spellcaster with dark magic.", listOfSprites[7]),
             new EnemyType("Golem", "A hulking creature made of stone.", listOfSprites[8]),
             new EnemyType("Shade", "A shadowy figure that drains life.", listOfSprites[9])
@@ -216,7 +216,7 @@ public class EnemyController : MonoBehaviour
         {
             fightText.text += $"\n{enemyName} will take some time to think about its next move!";
         }
-        StartCoroutine(HideFightTextAfterDelay(12f));
+        StartCoroutine(HideFightTextAfterDelay(8f));
     }
 
     // Function to deal damage to the player

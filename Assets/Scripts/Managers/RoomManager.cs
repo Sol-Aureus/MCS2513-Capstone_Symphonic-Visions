@@ -14,8 +14,6 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private GameObject[] roomsThree; // Array to hold all room buttons
     [SerializeField] private Selectable[] statList; // Array of the stat buttons for the rooms
     [SerializeField] private GameObject[] floors; // Array to hold room layouts
-    [SerializeField] private GameObject treasureRoom; // Reference to the treasure room prefab
-    [SerializeField] private GameObject enemyRoom; // Reference to the enemy room prefab
 
 
     [Header("Chances")]

@@ -53,6 +53,6 @@ public class SoundMixerManager : MonoBehaviour
         level = Mathf.Log10((level + 0.00001f) / 10) * 20;
         audioMixer.SetFloat("NarrationVolume", level);
 
-        SoundFXManager.main.PlaySound(volumeChange, transform, 1f); // Play sound effect when volume changes
+        StartCoroutine(TextToSpeakControl.main.SpeakText("Volume Changed!", 0)); // Speak the name of the selected element
     }
 }
