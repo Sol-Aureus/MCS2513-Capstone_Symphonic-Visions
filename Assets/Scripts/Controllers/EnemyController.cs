@@ -31,6 +31,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Image enemyImage; // UI image for displaying the enemy picture
     [SerializeField] private Slider healthSlider; // UI slider for displaying enemy health
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip winSound; // Sound to play when the enemy attacks
+
     private bool isBlocked = false; // Flag to check if the player has blocked an attack
     private bool fightEnded = false; // Flag to check if the fight has ended
 
@@ -141,6 +144,7 @@ public class EnemyController : MonoBehaviour
     // Function to delay hiding the fight text
     private IEnumerator EndFight(float delay)
     {
+        SoundFXManager.main.PlaySound(winSound, transform, 1); // Play the win sound
         yield return new WaitForSeconds(delay);
         HideFightTextAfterDelay(0f);
         RoomManager.main.GenerateRooms(); // Regenerate rooms after the fight ends

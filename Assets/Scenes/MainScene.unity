@@ -1800,7 +1800,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1379950255}
         m_TargetAssemblyTypeName: GameNavigation, Assembly-CSharp
-        m_MethodName: PlayButtonClickSound
+        m_MethodName: PlayBlockSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6510,6 +6510,7 @@ MonoBehaviour:
   fightTextBox: {fileID: 1734996477}
   enemyImage: {fileID: 110993643}
   healthSlider: {fileID: 877957052}
+  winSound: {fileID: 8300000, guid: 7478151cf36724a7dada558f746c3633, type: 3}
 --- !u!4 &1197289802
 Transform:
   m_ObjectHideFlags: 0
@@ -6602,7 +6603,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1379950255}
         m_TargetAssemblyTypeName: GameNavigation, Assembly-CSharp
-        m_MethodName: PlayButtonClickSound
+        m_MethodName: PlayAttackSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7185,6 +7186,8 @@ MonoBehaviour:
   uiInteraction: {fileID: 157006267}
   itemManager: {fileID: 625665425}
   buttonClickSound: {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2, type: 3}
+  attackSound: {fileID: 8300000, guid: d46323e22e74e46baa241cbf48c85671, type: 3}
+  blockSound: {fileID: 8300000, guid: 7bef0064f8567430cac22499c6b93d4f, type: 3}
   eventSystem: {fileID: 2131295215}
   deathText: {fileID: 311615619}
 --- !u!1 &1422777255
