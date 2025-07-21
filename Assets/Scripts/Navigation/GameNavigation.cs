@@ -29,7 +29,6 @@ public class GameNavigation : MonoBehaviour
     [SerializeField] private AudioClip blockSound; // Sound to play when a button is clicked
     [SerializeField] private EventSystem eventSystem; // Reference to the Event System in the scene
     [SerializeField] private TextMeshProUGUI deathText; // Text to display when the player dies
-    private GameObject lastSelectedObject; // Store the last selected object for the Event System
 
     private int currentRoom = 0; // Current room index, used for room navigation
 

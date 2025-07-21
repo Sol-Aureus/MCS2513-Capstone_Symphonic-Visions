@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class FightManager : MonoBehaviour
 {
-    private int turnCounter = 0; // Counter to keep track of turns in the fight
-
     // Function to have the player attack the enemy
     public void Attack()
     {
