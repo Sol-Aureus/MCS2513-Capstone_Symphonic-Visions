@@ -1,67 +1,22 @@
-# Unity 3D Project Template 2022.3.55
-# based on Jeremy Bond's MSU MI 231 Template
-
-**This project template for all Unity 2022.3 projects in MCS 1653 includes:**
-* A Unity project template that includes the correct .gitignore and .gitattributes files to work with GitHub. You won't see the .git___ files because they are invisible, but they help GIT work well with Unity projects.
-* **This README.md MarkDown file.** You will need to edit the **Required ReadMe Info** section below for ***EVERY*** project in this class.
-* A UnityWindowLayout.wlt file in the project folder (the same folder as this ReadMe.md file) that you can load to lay out the Unity window the way that Peter prefers.
-* Modifications to the base Unity project that **remove Plastic SCM**, which is extremely helpful for allowing Git to work well.
-
----
-
-# Required ReadMe Info for ALL MCS1653 Projects
-* **Project**   - 
-* **Your Name** - 
-* **Date**      - 
+* **Project**   - MCS2513 Capstone Project - Symphonic Visions
+* **Your Name** - Eric Harrison
+* **Date**      - 25/07/2025
 
 <br>
 
-1. **What are the controls to your game? How do we play?**
+Controls:
+W/S to scroll through the buttons on screen. The mouse also works
+Space/Enter/Click to press a button to perform the action stated
 
-
-
-<br>
-
-2. **What creative additions did you make? How can we find them?**
-
-
-
-<br>
-
-3. **Any assets used that you didn't create yourself?** <br> (art, music, etc. Just tell us where you got it, link it here)
-
-
-
-<br>
-
-4. **Did you receive help from anyone outside this class?** <br> (list their names and what they helped with)
-
-
-
-<br>
-
-5. **Did you get help from any AI Code Assistants?** <br> (Tell us which .cs file to look in for the citation and describe what you learned)
-
-
-
-<br>
-
-6. **Did you get help from any online websites, videos, or tutorials?** <br> (link them here)
-
-
-
-<br>
-
-7. **What trouble did you have with this project?**
-
-
-
-<br>
-
-8. **Is there anything else we should know?**
-
-
-
+How to play:
+Press play to start the game, and then you will be greeted with 3 or 4 buttons. The Statistics button will show you the player stats.
+The other buttons will take you to the described encounter. Unknown buttons will give a random encounter.
+There are 2 encounter types, treasure and enemy. The treasure room will contain 2 items that the player can choose from. These items will affect the player's stats.
+There are 4 buttons on this screen. Grab left/right will take the item on that side. Leave will take the player to the next floor.
+The enemy encounter will put the player in a battle against a randomly picked enemy. The enemy's stats and next action will be announced at the start of the fight.
+The player can either choose to attack, defend, or run. Running will incur a penalty. Attacking will damage the enemy, and defending will lower the enemy's damage based on the player's defense stat.
+The enemy can either attack, defend, charge their attack, or think. Thinking makes the enemy do nothing; charging their attack increases the enemy's damage.
+Attack and defend are the same for the player. When the enemy dies, the player is granted a buff to all stats. When the player dies, the run is over and all progress is lost.
 
 <br><br><br><br><br>
 

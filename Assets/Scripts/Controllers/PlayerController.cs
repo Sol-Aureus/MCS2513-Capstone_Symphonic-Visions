@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
             damage = Mathf.RoundToInt(damage * (1 - ((float)currentDefense / 100))); // Reduce damage based on defense
 
             fightText.text += $"\nYou blocked the attack!\n" +
-                $"You took {damage} damage";
+                $"You took {damage} damage and now have {currentHealth}.\n";
             fightTextBox.SetActive(true);
 
             currentHealth -= damage;
@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            fightText.text += $"\nYou took {damage} damage";
+            fightText.text += $"\nYou took {damage} damage and now have {currentHealth}.\n";
             fightTextBox.SetActive(true);
 
             currentHealth -= damage;

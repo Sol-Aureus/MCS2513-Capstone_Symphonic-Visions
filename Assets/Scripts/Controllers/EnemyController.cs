@@ -261,13 +261,11 @@ public class EnemyController : MonoBehaviour
     {
         if (isBlocked)
         {
-            fightText.text += $"You attacked the enemy for {PlayerController.main.GetAttack()} damage!\n";
-
             isBlocked = false; // Reset block status after blocking
             damage = Mathf.RoundToInt(damage * (1 - ((float)defense / 100))); // Reduce damage based on defense
 
             fightText.text += $"{enemyName} blocked the attack!\n" +
-                $"They took {damage} damage\n";
+                $"They took {damage} damage and now have {currentHealth}.\n";
             fightTextBox.SetActive(true);
 
             currentHealth -= damage;
@@ -275,8 +273,7 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            fightText.text += $"You attacked the enemy for {PlayerController.main.GetAttack()} damage!\n";
-            fightText.text += $"{enemyName} took {damage} damage\n";
+            fightText.text += $"{enemyName} took {damage} damage and now have {currentHealth}.\n";
             fightTextBox.SetActive(true);
 
             currentHealth -= damage;
